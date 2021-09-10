@@ -51,7 +51,7 @@ if (conn) {
 	app.use(cors());
 	// directories for uploaded resources
 	app.use(express.static(path.join(__dirname, 'public')));
-	// app.use('/uploads', express.static(process.env.UPLOAD_DIR));
+	app.use('/uploads', express.static(process.env.UPLOAD_DIR));
 
 	// middleware for all request
 	// if (process.env.ENV === 'production') {
