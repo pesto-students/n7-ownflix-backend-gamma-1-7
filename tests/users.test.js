@@ -7,7 +7,7 @@ const { ObjectID } = require('mongodb');
 var user = {
 	_id: ObjectID(),
 	name: 'Ayub Ansari',
-	email: 'rohanjaincode@gmail.com',
+	email: 'mail@mail.com',
 	password: '12345678',
 	mobile: '9614028180',
 	role: 'User',
@@ -32,7 +32,7 @@ var user3 = {
 describe('Users Functionality', () => {
 	beforeAll(() => {
 		UserModel.deleteMany({}).then(res => {
-			console.log('previous users deleted');
+			// console.log('previous users deleted');
 		});
 		UserModel.insertMany([user2, user3]);
 	});

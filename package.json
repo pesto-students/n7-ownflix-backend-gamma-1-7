@@ -7,7 +7,7 @@
     "start": "nodemon ./bin/www",
     "start:dev": "export NODE_ENV=dev && nodemon ./bin/www",
     "start:prod": "export NODE_ENV=production && nodemon ./bin/www",
-    "test": "jest --testTimeout=25000"
+    "test": "jest --testTimeout=35000"
   },
   "dependencies": {
     "aws-sdk": "^2.985.0",

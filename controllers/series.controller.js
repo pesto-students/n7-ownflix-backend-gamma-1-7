@@ -1,16 +1,17 @@
-const MovieService = require('../services/movie.service');
+const SeriesService = require('../services/series.service');
 
 exports.index = async function (req, res, next) {
-	let movies = await MovieService.index(req);
-	res.status(200).send(movies);
+	let series = await SeriesService.index();
+	res.status(200).send(series);
 };
 
 exports.store = async function (req, res, next) {
 	let dto = req.body;
 	try {
-		let movie = await MovieService.store(dto);
-		res.status(201).send({ data: movie, msg: 'New movie created successfully' });
+		let series = await SeriesService.store(dto);
+		res.status(201).send({ data: series, msg: 'New series created successfully' });
 	} catch (error) {
+		// console.log(error);
 		if (error.name === 'ValidationError') {
 			let errors = {};
 			Object.keys(error.errors).forEach(key => {
@@ -24,9 +25,9 @@ exports.store = async function (req, res, next) {
 
 exports.show = async function (req, res, next) {
 	let id = req.params.id;
-	let movie = await MovieService.show(id);
-	if (movie) {
-		res.status(200).send(movie);
+	let series = await SeriesService.show(id);
+	if (series) {
+		res.status(200).send(series);
 	} else {
 		res.status(404).send({ msg: 'Movie not found' });
 	}
@@ -37,8 +38,8 @@ exports.update = async function (req, res, next) {
 	let dto = req.body;
 	delete dto.user;
 	try {
-		let movie = await MovieService.update(id, dto);
-		return res.status(201).send({ data: movie, msg: 'Movie updated successfully' });
+		let series = await SeriesService.update(id, dto);
+		return res.status(201).send({ data: series, msg: 'Movie updated successfully' });
 	} catch (error) {
 		res.status(404).send({ msg: 'Movie not found' });
 	}
@@ -46,8 +47,8 @@ exports.update = async function (req, res, next) {
 
 exports.destroy = async function (req, res, next) {
 	let id = req.params.id;
-	let movie = await MovieService.destroy(id);
-	if (movie) {
+	let series = await SeriesService.destroy(id);
+	if (series) {
 		res.status(200).send({ msg: 'Movie deleted successfully' });
 	} else {
 		res.status(404).send({ msg: 'Movie not found' });
@@ -56,30 +57,14 @@ exports.destroy = async function (req, res, next) {
 
 exports.hardDestroy = async function (req, res, next) {
 	let id = req.params.id;
-	let movie = await MovieService.hardDestroy(id);
-	if (movie) {
+	let series = await SeriesService.hardDestroy(id);
+	if (series) {
 		res.status(200).send({ msg: 'Movie deleted successfully' });
 	} else {
 		res.status(404).send({ msg: 'Movie not found' });
 	}
 };
 
-exports.indexAll = async function (req, res, next) {
-	let movies = await MovieService.indexAll(req);
-	res.status(200).send(movies);
-};
-
-exports.popular = async function (req, res, next) {
-	let movies = await MovieService.popular(req);
-	res.status(200).send(movies);
-};
-exports.recommended = async function (req, res, next) {
-	let movies = await MovieService.recommended(req);
-	res.status(200).send(movies);
-};
-
-exports.byGenre = async function (req, res, next) {
-	let title = req.params.title;
-	let movies = await MovieService.byGenre(title);
-	res.status(200).send(movies);
+exports.getAll = async function (req, res, next) {
+	return res.status(404).send('NOT_DEFINED');
 };

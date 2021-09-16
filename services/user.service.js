@@ -16,6 +16,15 @@ exports.store = async function (dto) {
 	}
 };
 
+exports.show = async function (id) {
+	try {
+		let user = await User.findById(id);
+		return user;
+	} catch (e) {
+		throw Error('Error while creating user');
+	}
+};
+
 exports.update = async function (id, dto) {
 	// console.log(id, dto);
 	try {
@@ -27,9 +36,18 @@ exports.update = async function (id, dto) {
 };
 exports.destroy = async function (id) {
 	try {
-		let user = await User.findByIdAndDelete(id);
+		let user = await User.findById(id);
+		user.delete();
 		return user;
 	} catch (e) {
 		throw Error('Error while deleting user');
+	}
+};
+exports.hardDestroy = async function (id) {
+	try {
+		let user = await User.findByIdAndDelete(id);
+		return user;
+	} catch (e) {
+		throw Error('Error while deleting movie');
 	}
 };

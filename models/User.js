@@ -41,14 +41,18 @@ schema.pre('save', function (next) {
 });
 schema.pre('findOneAndUpdate', function (next) {
 	let user = this;
-	// console.log('user', user);
-	bcrypt.hash(user._update.password, salt, async function (err, hash) {
-		if (err) {
-			return false;
-		} else {
-			user._update.password = hash;
-			next();
-		}
-	});
+	if (user._update.password) {
+		bcrypt.hash(user._update.password, salt, async function (err, hash) {
+			if (err) {
+				return false;
+			} else {
+				user._update.password = hash;
+				next();
+			}
+		});
+	} else {
+		delete user._update.password;
+		next();
+	}
 });
 module.exports = mongoose.model('User', schema);

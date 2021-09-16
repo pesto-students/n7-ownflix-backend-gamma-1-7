@@ -2,12 +2,19 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 const mongoose_delete = require('mongoose-delete');
+const randomstring = require('randomstring');
 const slugify = require('slugify');
 
 const schema = mongoose.Schema(
 	{
-		title: { type: String, required: true, unique: true },
-		slug: String,
+		user: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
+		},
+		entity: { type: String, required: true },
+		entityId: { type: String, required: true },
+		watchTime: { type: Number, required: true },
 	},
 	{
 		timestamps: true,
@@ -16,10 +23,5 @@ const schema = mongoose.Schema(
 
 schema.plugin(mongoosePaginate);
 schema.plugin(mongoose_delete);
-schema.pre('save', function (next) {
-	let genre = this;
-	genre.slug = slugify(genre.title);
-	next();
-});
 
-module.exports = mongoose.model('Genre', schema);
+module.exports = mongoose.model('ResumeWatch', schema);

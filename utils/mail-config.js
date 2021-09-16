@@ -18,7 +18,7 @@ async function mailSender(name, mailList, subject, mailBody) {
 			subject: subject, // Subject line
 			html: `<p>${mailBody}</p>`, // html body
 		});
-		console.log('Message sent: %s', info.messageId);
+		// console.log('Message sent: %s', info.messageId);
 		return true;
 	} catch (error) {
 		console.log(error);
