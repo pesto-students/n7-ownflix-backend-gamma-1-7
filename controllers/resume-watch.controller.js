@@ -11,6 +11,7 @@ exports.store = async function (req, res, next) {
 		let resumeWatch = await ResumeWatchService.store(dto);
 		res.status(201).send({ data: resumeWatch, msg: 'New resume-watch created successfully' });
 	} catch (error) {
+		console.log(error);
 		if (error.name === 'ValidationError') {
 			let errors = {};
 			Object.keys(error.errors).forEach(key => {

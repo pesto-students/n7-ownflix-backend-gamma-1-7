@@ -17,7 +17,7 @@ const schema = mongoose.Schema(
 		noOfEpisodes: { type: Number, required: true },
 		images: { type: Array, required: true },
 		imagesVertical: { type: Array, required: true },
-		videoTrailer: { type: String, required: true },
+		videoTrailer: { type: Object, required: true },
 		yearOfRelease: { type: String, required: true },
 		dateOfRelease: { type: String, required: true },
 		director: String,
@@ -26,7 +26,7 @@ const schema = mongoose.Schema(
 		actors: String,
 		plot: String,
 		rated: { type: String, required: true },
-		isPublished: { type: Boolean, default: false },
+		isPublished: { type: Boolean, default: false, required: true },
 		subscriptionRequired: { type: Boolean, default: false, required: true },
 	},
 	{

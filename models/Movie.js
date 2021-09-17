@@ -28,7 +28,7 @@ const schema = mongoose.Schema(
 		actors: String,
 		plot: String,
 		rated: { type: String, required: true },
-		isPublished: { type: Boolean, default: false },
+		isPublished: { type: Boolean, default: false, required: true },
 		subscriptionRequired: { type: Boolean, default: false, required: true },
 		views: { type: Number, default: 0 },
 	},

@@ -17,13 +17,16 @@ describe('SeriesEpisode Functionality', () => {
 		episodeNo: 1,
 		title: 'Series Asur episode 1',
 		images: ['https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg'],
-		videoTrailer:
-			'https://images.unsplash.com/photo-1616594529046-d7b47847a021?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-		videoMain: 'https://images.unsplash.com/photo-1616594529046-d7b47847a021?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+		videoTrailer: {
+			s3rl: 'https://images.unsplash.com/photo-1616594529046-d7b47847a021?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+		},
+		videoMain: {
+			s3rl: 'https://images.unsplash.com/photo-1616594529046-d7b47847a021?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+		},
 
-		dateOfRealease: '2020-01-15',
+		dateOfRelease: '2020-01-15',
 
-		runnningTime: '150 mins',
+		runningTime: '150 mins',
 		plot: 'Lorem, ipsum, dolor sit amet consectetur adipisicing elit. Tempore neque quod deleniti distinctio eaque ab recusandae cum, alias laudantium porro dignissimos fuga rem repudiandae cupiditate obcaecati dolor assumenda earum amet vitae saepe illum dolores delectus. Quasi consectetur quam ad voluptatum sapiente, enim voluptatibus, eligendi inventore ipsam aliquam, eveniet! Eligendi laudantium porro in voluptatem. Voluptatum vero nesciunt nisi nihil, veniam iste. Veritatis blanditiis omnis cupiditate, provident accusamus eaque fuga aut consectetur, corporis distinctio reiciendis fugiat est ea, nihil quasi, sequi temporibus. Veniam voluptate velit quae, ipsa. Debitis expedita perferendis, nesciunt ipsa minus quisquam quae quam sit! Eligendi adipisci reprehenderit unde sit?',
 
 		isPublished: true,

@@ -11,7 +11,7 @@ exports.store = async function (req, res, next) {
 		let series = await SeriesService.store(dto);
 		res.status(201).send({ data: series, msg: 'New series created successfully' });
 	} catch (error) {
-		// console.log(error);
+		console.log(error);
 		if (error.name === 'ValidationError') {
 			let errors = {};
 			Object.keys(error.errors).forEach(key => {

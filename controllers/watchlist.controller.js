@@ -11,6 +11,7 @@ exports.store = async function (req, res, next) {
 		let watchlist = await WatchListService.store(dto);
 		res.status(201).send({ data: watchlist, msg: 'New watchlist created successfully' });
 	} catch (error) {
+		console.log(error);
 		if (error.name === 'ValidationError') {
 			let errors = {};
 			Object.keys(error.errors).forEach(key => {

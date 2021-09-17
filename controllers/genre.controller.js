@@ -11,6 +11,7 @@ exports.store = async function (req, res, next) {
 		let genre = await GenreService.store(dto);
 		res.status(201).send({ data: genre, msg: 'New genre created successfully' });
 	} catch (error) {
+		console.log(error);
 		if (error.name === 'ValidationError') {
 			let errors = {};
 			Object.keys(error.errors).forEach(key => {

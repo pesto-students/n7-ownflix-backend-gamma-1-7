@@ -11,6 +11,7 @@ exports.store = async function (req, res, next) {
 		let movie = await MovieService.store(dto);
 		res.status(201).send({ data: movie, msg: 'New movie created successfully' });
 	} catch (error) {
+		console.log(error);
 		if (error.name === 'ValidationError') {
 			let errors = {};
 			Object.keys(error.errors).forEach(key => {

@@ -24,7 +24,7 @@ describe('Series Functionality', () => {
 			'https://images.unsplash.com/photo-1616594529046-d7b47847a021?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
 
 		yearOfRelease: '2010',
-		dateOfRealease: '12-12-2012',
+		dateOfRelease: '12-12-2012',
 		director: 'C Nolan',
 		productionHouse: 'String',
 		imdbRating: 4.7,
@@ -54,8 +54,8 @@ describe('Series Functionality', () => {
 		expect(res.statusCode).toEqual(201);
 	});
 
-	it('get series/ , get all series details', async () => {
-		let res = await request.get('/series/');
+	it('get series/all , get all series details', async () => {
+		let res = await request.get('/series/all');
 		expect(res.statusCode).toEqual(200);
 	});
 
