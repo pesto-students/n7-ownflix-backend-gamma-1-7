@@ -22,7 +22,7 @@ const schema = mongoose.Schema(
 		videoTrailer: { type: String, required: true },
 		videoMain: { type: String, required: true },
 		dateOfRealease: { type: String, required: true },
-		runnningTime: { type: String, required: true },
+		runningTime: { type: String, required: true },
 		plot: String,
 		isPublished: { type: Boolean, default: false },
 	},
@@ -35,8 +35,9 @@ schema.plugin(mongoosePaginate);
 schema.plugin(mongoose_delete);
 schema.pre('save', function (next) {
 	let seriesEpisode = this;
-	seriesEpisode.slug =
-		slugify(seriesEpisode.title) + '-' + seriesEpisode.yearOfRelease + '-' + randomstring.generate(10);
+	seriesEpisode.slug = slugify(seriesEpisode.title + '-' + randomstring.generate(4), {
+		lower: true,
+	});
 	next();
 });
 

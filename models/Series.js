@@ -19,7 +19,7 @@ const schema = mongoose.Schema(
 		imagesVertical: { type: Array, required: true },
 		videoTrailer: { type: String, required: true },
 		yearOfRelease: { type: String, required: true },
-		dateOfRealease: { type: String, required: true },
+		dateOfRelease: { type: String, required: true },
 		director: String,
 		productionHouse: String,
 		imdbRating: Number,
@@ -38,7 +38,9 @@ schema.plugin(mongoosePaginate);
 schema.plugin(mongoose_delete);
 schema.pre('save', function (next) {
 	let series = this;
-	series.slug = slugify(series.title) + '-' + series.yearOfRelease + '-' + randomstring.generate(10);
+	series.slug = slugify(series.title + '-' + series.yearOfRelease + '-' + randomstring.generate(4), {
+		lower: true,
+	});
 	next();
 });
 

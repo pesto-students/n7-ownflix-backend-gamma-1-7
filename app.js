@@ -7,6 +7,8 @@ var mongoose = require('mongoose'); // new
 var bodyParser = require('body-parser'); //middleware
 var cors = require('cors'); //middleware
 require('dotenv').config();
+var docs = require('express-mongoose-docs');
+
 const auth = require('./middlewares/auth.middleware');
 
 // Connect to MongoDB database
@@ -76,6 +78,7 @@ if (conn) {
 	// router module mapper
 	// app.use('/auth', authRouter);
 	// app.use('/', indexRouter);
+	docs(app, mongoose);
 	app.use('/movies', movieRouter);
 	app.use('/auth', authRouter);
 	app.use('/', indexRouter);
