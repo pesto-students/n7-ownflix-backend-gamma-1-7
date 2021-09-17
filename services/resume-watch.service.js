@@ -52,3 +52,37 @@ exports.hardDestroy = async function (id) {
 		throw Error('Error while deleting resumeWatch');
 	}
 };
+
+exports.getDetails = async function (userId, entity, entityId) {
+	try {
+		let resumeWatch = await ResumeWatch.findOne({ user: userId, entity: entity, entityId: entityId });
+		return resumeWatch;
+	} catch (e) {
+		throw Error('Error while find resumeWatch by id');
+	}
+};
+exports.checkOrUpdate = async function (userId, entity, entityId, runningTime) {
+	let rwatch = await ResumeWatch.findOne({ user: userId, entity: entity, entityId: entityId });
+	if (rwatch) {
+		// update
+		return await ResumeWatch.updateOne(
+			{ user: userId, entity: entity, entityId: entityId },
+			{ watchTime: runningTime }
+		);
+	} else {
+		let r = await new ResumeWatch({
+			user: userId,
+			entity: entity,
+			entityId: entityId,
+			watchTime: runningTime,
+		});
+		return r;
+	}
+
+	// try {
+	// 	let resumeWatch = await ResumeWatch.findOne({ user: userId, entity: entity, entityId: entityId });
+	// 	return resumeWatch;
+	// } catch (e) {
+	// 	throw Error('Error while find resumeWatch by id');
+	// }
+};

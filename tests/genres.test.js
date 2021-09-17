@@ -14,15 +14,15 @@ describe('Genres Functionality', () => {
 
 	var genre = {
 		_id: ObjectID(),
-		title: 'Action' + randomstring.generate(10),
+		title: 'Action ',
 	};
 	var genre2 = {
 		_id: ObjectID(),
-		title: 'Thriller' + randomstring.generate(10),
+		title: 'Thriller ',
 	};
 	var genre3 = {
 		_id: ObjectID(),
-		title: 'Romantic' + randomstring.generate(10),
+		title: 'Romantic Drama',
 	};
 
 	it('post genres/ , New genre creation', async () => {
@@ -41,6 +41,10 @@ describe('Genres Functionality', () => {
 
 	it('get genres/ , get all genre details', async () => {
 		let res = await request.get('/genres/');
+		expect(res.statusCode).toEqual(200);
+	});
+	it('get genres/all , get all genre details', async () => {
+		let res = await request.get('/genres/all');
 		expect(res.statusCode).toEqual(200);
 	});
 

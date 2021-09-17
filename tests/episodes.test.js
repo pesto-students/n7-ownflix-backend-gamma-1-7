@@ -49,7 +49,7 @@ describe('SeriesEpisode Functionality', () => {
 	});
 
 	it('get series-episodes/ , get all episode details', async () => {
-		let res = await request.get('/series-episodes/');
+		let res = await request.get('/series-episodes/all');
 		expect(res.statusCode).toEqual(200);
 	});
 

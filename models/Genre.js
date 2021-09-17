@@ -18,7 +18,12 @@ schema.plugin(mongoosePaginate);
 schema.plugin(mongoose_delete);
 schema.pre('save', function (next) {
 	let genre = this;
-	genre.slug = slugify(genre.title);
+	genre.slug = slugify(genre.title, { lower: true });
+	next();
+});
+schema.pre('findOneAndUpdate', function (next) {
+	let genre = this;
+	genre._update.slug = slugify(genre._update.title, { lower: true });
 	next();
 });
 

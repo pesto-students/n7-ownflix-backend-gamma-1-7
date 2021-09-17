@@ -30,6 +30,7 @@ const schema = mongoose.Schema(
 		rated: { type: String, required: true },
 		isPublished: { type: Boolean, default: false },
 		subscriptionRequired: { type: Boolean, default: false, required: true },
+		views: { type: Number, default: 0 },
 	},
 	{
 		timestamps: true,

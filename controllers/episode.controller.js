@@ -64,6 +64,12 @@ exports.hardDestroy = async function (req, res, next) {
 	}
 };
 
-exports.getAll = async function (req, res, next) {
-	return res.status(404).send('NOT_DEFINED');
+exports.bySlug = async function (req, res, next) {
+	let slug = req.params.slug;
+	let episode = await EpisodeService.bySlug(slug);
+	res.status(200).send(episode);
+};
+exports.indexAll = async function (req, res, next) {
+	let episodes = await EpisodeService.indexAll();
+	res.status(200).send(episodes);
 };

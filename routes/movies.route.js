@@ -5,12 +5,15 @@ const movieController = require('../controllers/movie.controller');
 
 router.get('/', movieController.index);
 router.post('/', movieController.store);
+
 router.get('/all', movieController.indexAll);
+router.get('/latest', movieController.latest);
 router.get('/popular', movieController.popular);
 router.get('/recommended', movieController.recommended);
-router.get('/genre/:title', movieController.byGenre);
+router.get('/genre/:genreSlug', movieController.byGenre);
 
 router.get('/:id', movieController.show);
+router.get('/s/:slug', movieController.bySlug);
 router.put('/:id', movieController.update);
 
 router.delete('/:id', movieController.destroy);

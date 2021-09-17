@@ -2,7 +2,7 @@ var Genre = require('../models/Genre');
 
 exports.index = async function () {
 	try {
-		return await Genre.find();
+		return await Genre.find({ deleted: false });
 	} catch (e) {
 		throw Error('Error while paginating genres');
 	}
@@ -53,9 +53,17 @@ exports.hardDestroy = async function (id) {
 	}
 };
 
-exports.findByTitle = async function (title) {
+exports.indexAll = async function () {
 	try {
-		let genre = await Genre.findOne({ title: title });
+		return await Genre.find();
+	} catch (e) {
+		throw Error('Error while paginating genres');
+	}
+};
+
+exports.findBySlug = async function (genreSlug) {
+	try {
+		let genre = await Genre.findOne({ slug: genreSlug });
 		return genre;
 	} catch (e) {
 		console.log(e);

@@ -1,4 +1,5 @@
 var WatchList = require('../models/WatchList');
+const UserServices = require('../services/user.service');
 
 exports.index = async function () {
 	try {
@@ -51,5 +52,33 @@ exports.hardDestroy = async function (id) {
 		return watchlist;
 	} catch (e) {
 		throw Error('Error while deleting watchlist');
+	}
+};
+
+exports.userWatchList = async function (req, userId) {
+	let limit = req.query.limit;
+	let page = req.query.page;
+	try {
+		let user = await UserServices.show(userId);
+		// 	// console.log(user);
+		if (user) {
+			let query = {
+				deleted: false,
+				user: userId,
+			};
+
+			let options = {
+				limit: parseInt(limit) || 20,
+				page: parseInt(page) || 1,
+				sort: { createdAt: -1 },
+			};
+			let watchlist = await WatchList.paginate(query, options);
+			return watchlist;
+		} else {
+			return [];
+		}
+	} catch (e) {
+		// console.log(e);
+		throw Error('Error while find watchlist by user id');
 	}
 };

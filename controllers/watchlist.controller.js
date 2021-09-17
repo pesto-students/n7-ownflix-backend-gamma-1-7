@@ -64,6 +64,13 @@ exports.hardDestroy = async function (req, res, next) {
 	}
 };
 
-exports.getAll = async function (req, res, next) {
-	return res.status(404).send('NOT_DEFINED');
+exports.indexAll = async function (req, res, next) {
+	let watchlists = await WatchListService.index();
+	res.status(200).send(watchlists);
+};
+
+exports.userWatchList = async function (req, res, next) {
+	let userId = req.params.userId;
+	let watchlists = await WatchListService.userWatchList(req, userId);
+	res.status(200).send(watchlists);
 };

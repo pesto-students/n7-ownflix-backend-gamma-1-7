@@ -79,7 +79,16 @@ exports.recommended = async function (req, res, next) {
 };
 
 exports.byGenre = async function (req, res, next) {
-	let title = req.params.title;
-	let movies = await MovieService.byGenre(title);
+	let genreSlug = req.params.genreSlug;
+	let movies = await MovieService.byGenre(genreSlug);
 	res.status(200).send(movies);
+};
+exports.latest = async function (req, res, next) {
+	let movies = await MovieService.latest(req);
+	res.status(200).send(movies);
+};
+exports.bySlug = async function (req, res, next) {
+	let slug = req.params.slug;
+	let movie = await MovieService.bySlug(slug);
+	res.status(200).send(movie);
 };

@@ -52,3 +52,19 @@ exports.hardDestroy = async function (id) {
 		throw Error('Error while deleting episode');
 	}
 };
+exports.indexAll = async function () {
+	try {
+		return await Episode.find();
+	} catch (e) {
+		throw Error('Error while paginating episode');
+	}
+};
+
+exports.bySlug = async function (slug) {
+	try {
+		let episode = await Episode.findOne({ slug: slug }).populate('series');
+		return episode;
+	} catch (e) {
+		throw Error('Error while find movie by id');
+	}
+};

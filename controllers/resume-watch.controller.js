@@ -64,6 +64,30 @@ exports.hardDestroy = async function (req, res, next) {
 	}
 };
 
-exports.getAll = async function (req, res, next) {
-	return res.status(404).send('NOT_DEFINED');
+exports.indexAll = async function (req, res, next) {
+	let resumeWatches = await ResumeWatchService.index();
+	res.status(200).send(resumeWatches);
+};
+exports.getDetails = async function (req, res, next) {
+	let userId = req.query.userId;
+	let entity = req.query.entity;
+	let entityId = req.query.entityId;
+	let resumeWatch = await ResumeWatchService.getDetails(userId, entity, entityId);
+	if (resumeWatch) {
+		res.status(200).send(resumeWatch);
+	} else {
+		res.status(200).send({});
+	}
+};
+exports.checkOrUpdate = async function (req, res, next) {
+	let userId = req.query.userId;
+	let entity = req.query.entity;
+	let entityId = req.query.entityId;
+	let runningTime = req.query.entityId;
+	let resumeWatch = await ResumeWatchService.checkOrUpdate(userId, entity, entityId, runningTime);
+	if (resumeWatch) {
+		res.status(200).send(resumeWatch);
+	} else {
+		res.status(200).send({});
+	}
 };

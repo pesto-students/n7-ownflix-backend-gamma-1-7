@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const userController = require('../controllers/user.controller');
-
+// resources api
 router.get('/', userController.index);
 router.post('/', userController.store);
 router.get('/:id', userController.show);
