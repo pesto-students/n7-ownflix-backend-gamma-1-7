@@ -22,7 +22,7 @@ exports.index = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { imdbRating: -1, views: -1 },
@@ -31,6 +31,7 @@ exports.index = async function (req) {
 	try {
 		return await Movie.paginate(query, options);
 	} catch (e) {
+		// console.log(e);
 		throw Error('Error while paginating movies');
 	}
 };
@@ -99,7 +100,7 @@ exports.indexAll = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -119,7 +120,7 @@ exports.popular = async function (req) {
 		isPublished: true,
 	};
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1, imdbRating: -1, views: -1 },
@@ -160,7 +161,7 @@ exports.recommended = async function (req) {
 		}
 	}
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -208,7 +209,7 @@ exports.latest = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },

@@ -1,7 +1,7 @@
 const SeriesService = require('../services/series.service');
 
 exports.index = async function (req, res, next) {
-	let series = await SeriesService.index();
+	let series = await SeriesService.index(req);
 	res.status(200).send(series);
 };
 
