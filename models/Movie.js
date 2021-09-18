@@ -11,7 +11,7 @@ const schema = mongoose.Schema(
 		slug: String,
 		genre: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Genre',
+			ref: 'genres',
 			required: true,
 		},
 
