@@ -46,7 +46,7 @@ exports.store = async function (dto) {
 };
 exports.show = async function (id) {
 	try {
-		let series = await Series.findById(id);
+		let series = await Series.findById(id).populate('genres');
 		return series;
 	} catch (e) {
 		throw Error('Error while find series by id');

@@ -31,7 +31,6 @@ exports.index = async function (req) {
 	try {
 		return await Movie.paginate(query, options);
 	} catch (e) {
-		// console.log(e);
 		throw Error('Error while paginating movies');
 	}
 };
@@ -46,7 +45,7 @@ exports.store = async function (dto) {
 };
 exports.show = async function (id) {
 	try {
-		let movie = await Movie.findById(id);
+		let movie = await Movie.findById(id).populate('genres');
 		return movie;
 	} catch (e) {
 		throw Error('Error while find movie by id');
@@ -100,7 +99,7 @@ exports.indexAll = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genres' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
