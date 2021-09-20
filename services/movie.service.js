@@ -22,7 +22,7 @@ exports.index = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { imdbRating: -1, views: -1 },
@@ -45,7 +45,7 @@ exports.store = async function (dto) {
 };
 exports.show = async function (id) {
 	try {
-		let movie = await Movie.findById(id).populate('genres');
+		let movie = await Movie.findById(id).populate('genre');
 		return movie;
 	} catch (e) {
 		throw Error('Error while find movie by id');
@@ -99,7 +99,7 @@ exports.indexAll = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -119,7 +119,7 @@ exports.popular = async function (req) {
 		isPublished: true,
 	};
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1, imdbRating: -1, views: -1 },
@@ -160,7 +160,7 @@ exports.recommended = async function (req) {
 		}
 	}
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -208,7 +208,7 @@ exports.latest = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },

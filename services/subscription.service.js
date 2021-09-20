@@ -2,7 +2,7 @@ var Subscription = require('../models/Subscription');
 
 exports.index = async function () {
 	try {
-		return await Subscription.find();
+		return await Subscription.find().populate('user', { name: 1, _id: 1 });
 	} catch (e) {
 		throw Error('Error while paginating subscriptions');
 	}

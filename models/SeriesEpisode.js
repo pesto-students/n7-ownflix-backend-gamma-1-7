@@ -24,7 +24,7 @@ const schema = mongoose.Schema(
 		dateOfRelease: { type: String, required: true },
 		runningTime: { type: String, required: true },
 		plot: String,
-		isPublished: { type: Boolean, default: false, required: true },
+		isPublished: { type: Boolean, default: true, required: true },
 	},
 	{
 		timestamps: true,

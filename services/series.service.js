@@ -23,7 +23,7 @@ exports.index = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { imdbRating: -1, views: -1 },
@@ -46,7 +46,7 @@ exports.store = async function (dto) {
 };
 exports.show = async function (id) {
 	try {
-		let series = await Series.findById(id).populate('genres');
+		let series = await Series.findById(id).populate('genre');
 		return series;
 	} catch (e) {
 		throw Error('Error while find series by id');
@@ -100,7 +100,7 @@ exports.indexAll = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -120,7 +120,7 @@ exports.popular = async function (req) {
 		isPublished: true,
 	};
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1, imdbRating: -1, views: -1 },
@@ -161,7 +161,7 @@ exports.recommended = async function (req) {
 		}
 	}
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -209,7 +209,7 @@ exports.latest = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genres', select: 'title slug' }],
+		populate: [{ path: 'genre', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
