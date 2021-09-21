@@ -62,34 +62,34 @@ if (conn) {
 	app.use('/uploads', express.static(process.env.UPLOAD_DIR));
 
 	// middleware for all request
-	// if (process.env.ENV === 'production') {
-	// 	app.use(function (req, res, next) {
-	// 		// check auth client
-	// 		// console.log('prod');
-	// 		const xKey = req.headers['x-api-key'];
-	// 		if (process.env.X_API_KEY === xKey) {
-	// 			next();
-	// 		} else {
-	// 			next(createError(401));
-	// 		}
-	// 	});
-	// }
+	if (process.env.ENV === 'production') {
+		app.use(function (req, res, next) {
+			// check auth client
+			// console.log('prod');
+			const xKey = req.headers['x-api-key'];
+			if (process.env.X_API_KEY === xKey) {
+				next();
+			} else {
+				next(createError(401));
+			}
+		});
+	}
 
 	// router module mapper
 	// app.use('/auth', authRouter);
 	// app.use('/', indexRouter);
 	docs(app, mongoose);
-	app.use('/movies', movieRouter);
 	app.use('/auth', authRouter);
-	app.use('/', indexRouter);
 	app.use('/users', usersRouter);
+	app.use('/', indexRouter);
 
-	app.use('/series', seriesRouter);
-	app.use('/series-episodes', episodeRouter);
-	app.use('/genres', genreRouter);
-	app.use('/resume-watch', resumeWatchRouter);
-	app.use('/watch-list', watchListRouter);
-	app.use('/subscriptions', subscriptionRouter);
+	app.use('/movies', auth, movieRouter);
+	app.use('/series', auth, seriesRouter);
+	app.use('/series-episodes', auth, episodeRouter);
+	app.use('/genres', auth, genreRouter);
+	app.use('/resume-watch', auth, resumeWatchRouter);
+	app.use('/watch-list', auth, watchListRouter);
+	app.use('/subscriptions', auth, subscriptionRouter);
 
 	// catch 404 and forward to error handler
 	app.use(function (req, res, next) {
