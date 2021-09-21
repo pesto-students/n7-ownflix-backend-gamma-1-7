@@ -1,17 +1,18 @@
 var express = require('express');
 var router = express.Router();
+const auth = require('../middlewares/auth.middleware');
 
 const userController = require('../controllers/user.controller');
 // resources api
-router.get('/', userController.index);
+router.get('/', auth, userController.index);
 router.post('/', userController.store);
-router.get('/:id', userController.show);
-router.put('/:id', userController.update);
-router.delete('/:id', userController.destroy);
-router.patch('/:id', userController.updateStatus);
-router.delete('/:id/delete', userController.hardDestroy);
+router.get('/:id', auth, userController.show);
+router.put('/:id', auth, userController.update);
+router.delete('/:id', auth, userController.destroy);
+router.patch('/:id', auth, userController.updateStatus);
+router.delete('/:id/delete', auth, userController.hardDestroy);
 
-router.get('/all', userController.getAll);
+router.get('/all', auth, userController.getAll);
 
 module.exports = router;
 
