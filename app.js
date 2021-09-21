@@ -35,6 +35,7 @@ if (conn) {
 	var resumeWatchRouter = require('./routes/resume-watch.route');
 	var watchListRouter = require('./routes/watchlists.route');
 	var subscriptionRouter = require('./routes/subscriptions.route');
+	var dashboardRouter = require('./routes/dashboard.route');
 
 	// view engine setup
 	app.set('views', path.join(__dirname, 'views'));
@@ -62,18 +63,18 @@ if (conn) {
 	app.use('/uploads', express.static(process.env.UPLOAD_DIR));
 
 	// middleware for all request
-	if (process.env.ENV === 'production') {
-		app.use(function (req, res, next) {
-			// check auth client
-			// console.log('prod');
-			const xKey = req.headers['x-api-key'];
-			if (process.env.X_API_KEY === xKey) {
-				next();
-			} else {
-				next(createError(401));
-			}
-		});
-	}
+	// if (process.env.ENV === 'production') {
+	// 	app.use(function (req, res, next) {
+	// 		// check auth client
+	// 		// console.log('prod');
+	// 		const xKey = req.headers['x-api-key'];
+	// 		if (process.env.X_API_KEY === xKey) {
+	// 			next();
+	// 		} else {
+	// 			next(createError(401));
+	// 		}
+	// 	});
+	// }
 
 	// router module mapper
 	// app.use('/auth', authRouter);
@@ -82,7 +83,7 @@ if (conn) {
 	app.use('/auth', authRouter);
 	app.use('/users', usersRouter);
 	app.use('/', indexRouter);
-
+	app.use('/dashboard', auth, dashboardRouter);
 	app.use('/movies', auth, movieRouter);
 	app.use('/series', auth, seriesRouter);
 	app.use('/series-episodes', auth, episodeRouter);
