@@ -16,8 +16,11 @@ exports.store = async function (req, res, next) {
 		await mailSender(
 			dto.name,
 			dto.email,
-			'Welcome',
-			`<hr>Welcome to our platform your otp : ${dto.otp}<hr>`
+			'OTP Verification',
+			`<hr>
+			Hello ${dto.name},
+			Welcome to Watchflix. You are a registered member now. To verify your email please find the OTP below <br>
+			OTP: ${dto.otp}<hr>`
 		);
 		res.status(201).send({ data: user, msg: 'New user created successfully' });
 	} else {

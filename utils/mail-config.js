@@ -7,13 +7,13 @@ async function mailSender(name, mailList, subject, mailBody) {
 		port: 465,
 		secure: true,
 		auth: {
-			user: 'test@ayubansari.com', // generated ethereal user
-			pass: '9614028180@@', // generated ethereal password
+			user: 'pesto@ayubansari.com', // generated ethereal user
+			pass: '3Dz^XH3$NuPw', // generated ethereal password
 		},
 	});
 	try {
 		let info = await transporter.sendMail({
-			from: 'Ayub Ansari test <test@ayubansari.com>', // sender address
+			from: 'Watchflix <test@ayubansari.com>', // sender address
 			to: mailList, // list of receivers
 			subject: subject, // Subject line
 			html: `<p>${mailBody}</p>`, // html body
