@@ -47,16 +47,16 @@ if (conn) {
 
 	app.use(cookieParser());
 	// cors
-	// app.use(function (req, res, next) {
-	// 	res.header('Access-Control-Allow-Origin', '*');
-	// 	res.header(
-	// 		'Access-Control-Allow-Headers',
-	// 		' Origin, X-Requested-With, Content-Type, Accept,x-api-key ,Authorization'
-	// 	);
-	// 	res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
-	// 	console.log('cors');
-	// 	next();
-	// });
+	app.use(function (req, res, next) {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header(
+			'Access-Control-Allow-Headers',
+			' Origin, X-Requested-With, Content-Type, Accept,x-api-key ,Authorization'
+		);
+		res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
+		console.log('cors');
+		next();
+	});
 	app.use(cors());
 	// directories for uploaded resources
 	app.use(express.static(path.join(__dirname, 'public')));
