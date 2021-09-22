@@ -30,6 +30,7 @@ schema.plugin(mongoose_delete);
 
 schema.pre('save', function (next) {
 	let user = this;
+	user.email = user.email.toLowerCase();
 	bcrypt.hash(user.password, salt, async function (err, hash) {
 		if (err) {
 			return false;

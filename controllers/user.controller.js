@@ -11,20 +11,30 @@ exports.store = async function (req, res, next) {
 	let dto = req.body;
 	dto.otp = parseInt(Math.random() * 1000000);
 	// console.log(dto);
-	let user = await UserService.store(dto);
-	if (user) {
+	try {
+		let user = await UserService.store(dto);
+		// if (user) {
 		await mailSender(
 			dto.name,
 			dto.email,
 			'OTP Verification',
 			`<hr>
-			Hello ${dto.name},
-			Welcome to Watchflix. You are a registered member now. To verify your email please find the OTP below <br>
-			OTP: ${dto.otp}<hr>`
+				Hello ${dto.name},
+				Welcome to Watchflix. You are a registered member now. To verify your email please find the OTP below <br>
+				OTP: ${dto.otp}<hr>`
 		);
-		res.status(201).send({ data: user, msg: 'New user created successfully' });
-	} else {
-		res.status(200).send({ msg: 'Email already exists' });
+		res.status(201).send(user);
+		// }
+	} catch (error) {
+		console.log(error);
+		if (error.name === 'ValidationError') {
+			let errors = {};
+			Object.keys(error.errors).forEach(key => {
+				errors[key] = error.errors[key].message;
+			});
+			return res.status(400).send(errors);
+		}
+		res.status(204).send({ msg: error.message });
 	}
 };
 
