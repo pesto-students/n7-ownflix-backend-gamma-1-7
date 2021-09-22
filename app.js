@@ -47,34 +47,34 @@ if (conn) {
 
 	app.use(cookieParser());
 	// cors
-	app.use(function (req, res, next) {
-		res.header('Access-Control-Allow-Origin', '*');
-		res.header(
-			'Access-Control-Allow-Headers',
-			' Origin, X-Requested-With, Content-Type, Accept,x-api-key ,Authorization'
-		);
-		res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
-		console.log('cors');
-		next();
-	});
+	// app.use(function (req, res, next) {
+	// 	res.header('Access-Control-Allow-Origin', '*');
+	// 	res.header(
+	// 		'Access-Control-Allow-Headers',
+	// 		' Origin, X-Requested-With, Content-Type, Accept,x-api-key ,Authorization'
+	// 	);
+	// 	res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
+	// 	console.log('cors');
+	// 	next();
+	// });
 	app.use(cors());
 	// directories for uploaded resources
 	app.use(express.static(path.join(__dirname, 'public')));
 	app.use('/uploads', express.static(process.env.UPLOAD_DIR));
 
 	// middleware for all request
-	// if (process.env.ENV === 'production') {
-	// 	app.use(function (req, res, next) {
-	// 		// check auth client
-	// 		// console.log('prod');
-	// 		const xKey = req.headers['x-api-key'];
-	// 		if (process.env.X_API_KEY === xKey) {
-	// 			next();
-	// 		} else {
-	// 			next(createError(401));
-	// 		}
-	// 	});
-	// }
+	if (process.env.ENV === 'production') {
+		app.use(function (req, res, next) {
+			// check auth client
+			// console.log('prod');
+			const xKey = req.headers['x-api-key'];
+			if (process.env.X_API_KEY === xKey) {
+				next();
+			} else {
+				next(createError(401));
+			}
+		});
+	}
 
 	// router module mapper
 	// app.use('/auth', authRouter);
