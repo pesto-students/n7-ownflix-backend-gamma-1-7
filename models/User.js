@@ -8,7 +8,7 @@ var salt = parseInt(process.env.BCRYPT_SALT);
 const schema = mongoose.Schema(
 	{
 		name: String,
-		email: { type: String, unique: true },
+		email: { type: String, unique: true, lowercase: true },
 		password: String,
 		mobile: String,
 		role: {
@@ -30,7 +30,7 @@ schema.plugin(mongoose_delete);
 
 schema.pre('save', function (next) {
 	let user = this;
-	user.email = user.email.toLowerCase();
+	// user.email = user.email.toLowerCase();
 	bcrypt.hash(user.password, salt, async function (err, hash) {
 		if (err) {
 			return false;
