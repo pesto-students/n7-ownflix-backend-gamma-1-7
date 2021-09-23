@@ -84,13 +84,13 @@ if (conn) {
 	app.use('/users', usersRouter);
 	app.use('/', indexRouter);
 	app.use('/dashboard', auth, dashboardRouter);
-	app.use('/movies', auth, movieRouter);
-	app.use('/series', auth, seriesRouter);
-	app.use('/series-episodes', auth, episodeRouter);
-	app.use('/genres', auth, genreRouter);
-	app.use('/resume-watch', auth, resumeWatchRouter);
-	app.use('/watch-list', auth, watchListRouter);
-	app.use('/subscriptions', auth, subscriptionRouter);
+	app.use('/movies', movieRouter);
+	app.use('/series', seriesRouter);
+	app.use('/series-episodes', episodeRouter);
+	app.use('/genres', genreRouter);
+	app.use('/resume-watch', resumeWatchRouter);
+	app.use('/watch-list', watchListRouter);
+	app.use('/subscriptions', subscriptionRouter);
 
 	// catch 404 and forward to error handler
 	app.use(function (req, res, next) {
