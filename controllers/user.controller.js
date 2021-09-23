@@ -92,3 +92,35 @@ exports.updateStatus = async function (req, res, next) {
 		res.status(404).send({ msg: 'User not found' });
 	}
 };
+
+exports.resendOTP = async function (req, res, next) {
+	let { id } = req.body;
+	// console.log(dto);
+	try {
+		let dto = await UserService.show(id);
+		dto.otp = parseInt(Math.random() * 1000000);
+		// if (user) {
+		await mailSender(
+			dto.name,
+			dto.email,
+			'OTP Verification',
+			`<hr>
+				Hello ${dto.name},
+				Welcome to Watchflix. You are a registered member now. To verify your email please find the OTP below <br>
+				OTP: ${dto.otp}<hr>`
+		);
+		let user = await UserService.update(id, { otp: dto.otp });
+		res.status(201).send({ msg: 'OTP sent successfully' });
+		// }
+	} catch (error) {
+		console.log(error);
+		if (error.name === 'ValidationError') {
+			let errors = {};
+			Object.keys(error.errors).forEach(key => {
+				errors[key] = error.errors[key].message;
+			});
+			return res.status(400).send(errors);
+		}
+		res.status(204).send({ msg: error.message });
+	}
+};

@@ -27,10 +27,12 @@ exports.login = async function (req, res, next) {
 						data: {
 							accessToken: accessToken,
 							user: {
+								id: user.id,
 								name: user.name,
 								email: user.email,
 								role: user.role,
 								active: user.active,
+								isVerified: user.isVerified,
 							},
 						},
 						msg: 'User logged in successfully',
