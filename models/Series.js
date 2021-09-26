@@ -9,11 +9,13 @@ const schema = mongoose.Schema(
 	{
 		title: { type: String, required: true },
 		slug: String,
-		genre: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Genre',
-			required: true,
-		},
+		genres: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Genre',
+				required: true,
+			},
+		],
 		noOfEpisodes: { type: Number, required: true },
 		images: { type: Array, required: true },
 		imagesVertical: { type: Array, required: true },

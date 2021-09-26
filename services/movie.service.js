@@ -22,7 +22,7 @@ exports.index = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { imdbRating: -1, views: -1 },
@@ -99,7 +99,7 @@ exports.indexAll = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -119,7 +119,7 @@ exports.popular = async function (req) {
 		isPublished: true,
 	};
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1, imdbRating: -1, views: -1 },
@@ -160,7 +160,7 @@ exports.recommended = async function (req) {
 		}
 	}
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
@@ -177,7 +177,7 @@ exports.byGenre = async function (genreSlug) {
 	try {
 		let genre = await GenreService.findBySlug(genreSlug);
 		if (genre) {
-			let movies = await Movie.paginate({ genre: genre._id });
+			let movies = await Movie.paginate({ genres: genre._id });
 			return movies;
 		} else {
 			throw Error('Error while find movie by id');
@@ -208,7 +208,7 @@ exports.latest = async function (req) {
 	};
 
 	let options = {
-		populate: [{ path: 'genre', select: 'title slug' }],
+		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
 		sort: { createdAt: -1 },
