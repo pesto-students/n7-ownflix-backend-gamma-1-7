@@ -177,7 +177,11 @@ exports.byGenre = async function (genreSlug) {
 	try {
 		let genre = await GenreService.findBySlug(genreSlug);
 		if (genre) {
-			let movies = await Movie.paginate({ genres: genre._id });
+			let options = {
+				populate: [{ path: 'genres', select: 'title slug' }],
+			};
+
+			let movies = await Movie.paginate({ genres: genre._id }, options);
 			return movies;
 		} else {
 			throw Error('Error while find movie by id');
