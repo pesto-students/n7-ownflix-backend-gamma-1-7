@@ -136,7 +136,7 @@ exports.recommended = async function (req) {
 	let limit = req.query.limit;
 	let page = req.query.page;
 	let genreSlug = req.query.genre;
-
+	// console.log(genreSlug);
 	if (search) {
 		var regexString = '.*' + search + '.*';
 	} else {
@@ -229,6 +229,18 @@ exports.bySlug = async function (slug) {
 	try {
 		let movie = await Movie.findOne({ slug: slug }).populate({ path: 'genres', select: 'title slug' });
 		return movie;
+	} catch (e) {
+		throw Error('Error while find movie by id');
+	}
+};
+
+exports.findMany = async function (ids) {
+	try {
+		let movies = await Movie.find({ _id: { $in: ids } }).populate({
+			path: 'genres',
+			select: 'title slug',
+		});
+		return movies;
 	} catch (e) {
 		throw Error('Error while find movie by id');
 	}

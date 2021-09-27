@@ -12,7 +12,10 @@ const schema = mongoose.Schema(
 			ref: 'User',
 			required: true,
 		},
-		entity: { type: String, required: true },
+		entity: {
+			type: String,
+			enum: ['movies', 'series'],
+		},
 		entityId: { type: String, required: true },
 	},
 	{

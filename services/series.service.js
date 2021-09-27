@@ -244,3 +244,15 @@ exports.bySlug = async function (slug) {
 		throw Error('Error while find series by id');
 	}
 };
+
+exports.findMany = async function (ids) {
+	try {
+		let series = await Series.find({ _id: { $in: ids } }).populate({
+			path: 'genres',
+			select: 'title slug',
+		});
+		return series;
+	} catch (e) {
+		throw Error('Error while find movie by id');
+	}
+};
