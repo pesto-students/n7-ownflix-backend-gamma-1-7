@@ -256,3 +256,15 @@ exports.findMany = async function (ids) {
 		throw Error('Error while find movie by id');
 	}
 };
+
+exports.finded = async function (id) {
+	try {
+		let series = await Series.findOne({ _id: id }).populate({
+			path: 'genres',
+			select: 'title slug',
+		});
+		return series;
+	} catch (e) {
+		throw Error('Error while find movie by id');
+	}
+};

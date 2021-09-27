@@ -62,9 +62,9 @@ exports.userWatchList = async function (req, userId) {
 	let limit = req.query.limit;
 	let page = req.query.page;
 	try {
-		let user = await UserServices.show(userId);
-		// 	// console.log(user);
-		let modWatchlist = {};
+		let user = 'sss';
+		// // 	// console.log(user);
+		// let modWatchlist = {};
 		if (user) {
 			let query = {
 				deleted: false,
@@ -76,26 +76,39 @@ exports.userWatchList = async function (req, userId) {
 				page: parseInt(page) || 1,
 				sort: { createdAt: -1 },
 			};
+
 			let watchlist = await WatchList.paginate(query, options);
 			let moviesIds = [];
 			watchlist.docs
 				.filter(item => item.entity === 'movies')
 				.map((item, index) => {
-					moviesIds.push(item.entityId);
+					moviesIds.push({ watchlistId: item.id, movieId: item.entityId });
 				});
+			let moviesArray = [];
+			for (let index = 0; index < moviesIds.length; index++) {
+				const movieId = moviesIds[index]['movieId'];
+				const watchlistId = moviesIds[index]['watchlistId'];
+				// console.log({ movieId, watchlistId });
+				let movie = await MovieService.finded(movieId);
+				moviesArray.push({ watchlistId: watchlistId, movie: movie });
+			}
 
 			let seriesIds = [];
 			watchlist.docs
 				.filter(item => item.entity === 'series')
 				.map((item, index) => {
-					seriesIds.push(item.entityId);
+					seriesIds.push({ watchlistId: item.id, seriesId: item.entityId });
 				});
-			let movies = await MovieService.findMany(moviesIds);
-			let series = await SeriesService.findMany(seriesIds);
-			// console.log(movies, series);
-			// console.log({ moviesIds, seriesIds });
-			// watchlist.docs.filter(item=>item.entity==="movies")
-			return { movies, series };
+			let seriesArray = [];
+			for (let index = 0; index < seriesIds.length; index++) {
+				const seriesId = seriesIds[index]['seriesId'];
+				const watchlistId = seriesIds[index]['watchlistId'];
+				// console.log({ seriesId, watchlistId });
+				let series = await SeriesService.finded(seriesId);
+				seriesArray.push({ watchlistId: watchlistId, series: series });
+			}
+
+			return { movies: moviesArray, series: seriesArray };
 		} else {
 			return [];
 		}

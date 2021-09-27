@@ -21,7 +21,7 @@ exports.show = async function (id) {
 		let user = await User.findById(id);
 		return user;
 	} catch (e) {
-		throw Error('Error while creating user');
+		throw Error('Error while showing user');
 	}
 };
 

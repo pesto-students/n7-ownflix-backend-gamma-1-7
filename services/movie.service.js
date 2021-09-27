@@ -245,3 +245,14 @@ exports.findMany = async function (ids) {
 		throw Error('Error while find movie by id');
 	}
 };
+exports.finded = async function (id) {
+	try {
+		let movies = await Movie.findOne({ _id: id }).populate({
+			path: 'genres',
+			select: 'title slug',
+		});
+		return movies;
+	} catch (e) {
+		throw Error('Error while find movie by id');
+	}
+};
