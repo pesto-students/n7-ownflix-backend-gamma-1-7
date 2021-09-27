@@ -230,7 +230,11 @@ exports.bySlug = async function (slug) {
 	try {
 		let modSeries = {};
 		let series = await Series.findOne({ slug: slug });
-		let episodes = await SeriesEpisode.find({ series: series.id, deleted: false, isPublished: true });
+		let episodes = await SeriesEpisode.find({
+			series: series.id,
+			deleted: false,
+			isPublished: true,
+		}).populate({ path: 'genres', select: 'title slug' });
 		modSeries = { ...series._doc };
 		modSeries.episodes = episodes;
 		// console.log(series);

@@ -227,7 +227,7 @@ exports.latest = async function (req) {
 
 exports.bySlug = async function (slug) {
 	try {
-		let movie = await Movie.findOne({ slug: slug });
+		let movie = await Movie.findOne({ slug: slug }).populate({ path: 'genres', select: 'title slug' });
 		return movie;
 	} catch (e) {
 		throw Error('Error while find movie by id');
