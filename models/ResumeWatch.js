@@ -17,7 +17,7 @@ const schema = mongoose.Schema(
 			enum: ['movies', 'series'],
 		},
 		entityId: { type: String, required: true },
-		watchTime: { type: Number, required: true },
+		runningTime: { type: Number, required: true },
 	},
 	{
 		timestamps: true,

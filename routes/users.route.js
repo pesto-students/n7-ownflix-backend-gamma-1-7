@@ -4,13 +4,13 @@ const auth = require('../middlewares/auth.middleware');
 
 const userController = require('../controllers/user.controller');
 // resources api
-router.get('/', auth, userController.index);
 router.post('/', userController.store);
 router.post('/resend-otp', userController.resendOTP);
 router.get('/:id', userController.show);
 router.put('/:id', userController.update);
-router.delete('/:id', auth, userController.destroy);
 router.patch('/:id', userController.updateStatus);
+router.get('/', auth, userController.index);
+router.delete('/:id', auth, userController.destroy);
 router.delete('/:id/delete', auth, userController.hardDestroy);
 
 router.get('/all', auth, userController.getAll);

@@ -45,7 +45,7 @@ exports.store = async function (dto) {
 };
 exports.show = async function (id) {
 	try {
-		let movie = await Movie.findById(id).populate('genre');
+		let movie = await Movie.findById(id).populate('genres');
 		return movie;
 	} catch (e) {
 		throw Error('Error while find movie by id');

@@ -63,19 +63,27 @@ exports.getDetails = async function (userId, entity, entityId) {
 };
 exports.checkOrUpdate = async function (userId, entity, entityId, runningTime) {
 	let rwatch = await ResumeWatch.findOne({ user: userId, entity: entity, entityId: entityId });
+	// console.log(rwatch);
 	if (rwatch) {
-		// update
-		return await ResumeWatch.updateOne(
-			{ user: userId, entity: entity, entityId: entityId },
-			{ watchTime: runningTime }
-		);
+		// console.log('update');
+		let gg = await ResumeWatch.findOneAndUpdate({
+			user: userId,
+			entity: entity,
+			entityId: entityId,
+			runningTime: runningTime,
+		});
+		// console.log(gg);
+		// gg.save();
+		return gg;
 	} else {
+		// console.log('new', { user: userId });
 		let r = await new ResumeWatch({
 			user: userId,
 			entity: entity,
 			entityId: entityId,
-			watchTime: runningTime,
+			runningTime: runningTime,
 		});
+		r.save();
 		return r;
 	}
 

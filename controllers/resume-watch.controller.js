@@ -75,16 +75,16 @@ exports.getDetails = async function (req, res, next) {
 	let entityId = req.query.entityId;
 	let resumeWatch = await ResumeWatchService.getDetails(userId, entity, entityId);
 	if (resumeWatch) {
-		res.status(200).send(resumeWatch);
+		res.status(200).send({ runningTime: resumeWatch.runningTime });
 	} else {
-		res.status(200).send({});
+		res.status(200).send({ runningTime: 0 });
 	}
 };
 exports.checkOrUpdate = async function (req, res, next) {
 	let userId = req.query.userId;
 	let entity = req.query.entity;
 	let entityId = req.query.entityId;
-	let runningTime = req.query.entityId;
+	let runningTime = parseInt(req.query.runningTime);
 	let resumeWatch = await ResumeWatchService.checkOrUpdate(userId, entity, entityId, runningTime);
 	if (resumeWatch) {
 		res.status(200).send(resumeWatch);
