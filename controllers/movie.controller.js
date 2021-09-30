@@ -93,3 +93,9 @@ exports.bySlug = async function (req, res, next) {
 	let movie = await MovieService.bySlug(slug);
 	res.status(200).send(movie);
 };
+
+exports.views = async function (req, res, next) {
+	let movieId = req.params.id;
+	let movie = await MovieService.views(movieId);
+	res.status(200).send(movie);
+};

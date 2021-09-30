@@ -122,7 +122,7 @@ exports.popular = async function (req) {
 		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
-		sort: { createdAt: -1, imdbRating: -1, views: -1 },
+		sort: { imdbRating: -1, views: -1 },
 	};
 
 	try {
@@ -254,5 +254,24 @@ exports.finded = async function (id) {
 		return movies;
 	} catch (e) {
 		throw Error('Error while find movie by id');
+	}
+};
+
+exports.views = async function (movieId) {
+	let m = await Movie.findById(movieId);
+	console.log(m.views);
+	if (m) {
+		console.log('dada');
+		let gg = await Movie.findByIdAndUpdate(
+			movieId,
+			{
+				views: parseInt(m.views) + 1,
+			},
+			{ new: true }
+		);
+		// console.log({ gg });
+		return gg;
+	} else {
+		return m.views;
 	}
 };

@@ -66,14 +66,15 @@ exports.checkOrUpdate = async function (userId, entity, entityId, runningTime) {
 	// console.log(rwatch);
 	if (rwatch) {
 		// console.log('update');
-		let gg = await ResumeWatch.findOneAndUpdate({
-			user: userId,
-			entity: entity,
-			entityId: entityId,
-			runningTime: runningTime,
-		});
-		// console.log(gg);
-		// gg.save();
+		let gg = await ResumeWatch.findOneAndUpdate(
+			{
+				user: userId,
+				entity: entity,
+				entityId: entityId,
+			},
+			{ runningTime: runningTime }
+		);
+
 		return gg;
 	} else {
 		// console.log('new', { user: userId });

@@ -4,6 +4,7 @@ var router = express.Router();
 const movieController = require('../controllers/movie.controller');
 
 router.get('/', movieController.index);
+router.get('/views/:id', movieController.views);
 router.post('/', movieController.store);
 
 router.get('/all', movieController.indexAll);
