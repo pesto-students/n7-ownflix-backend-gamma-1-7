@@ -1,4 +1,6 @@
 var ResumeWatch = require('../models/ResumeWatch');
+const MovieService = require('../services/movie.service');
+const SeriesService = require('../services/series.service');
 
 exports.index = async function () {
 	try {
@@ -94,4 +96,86 @@ exports.checkOrUpdate = async function (userId, entity, entityId, runningTime) {
 	// } catch (e) {
 	// 	throw Error('Error while find resumeWatch by id');
 	// }
+};
+
+exports.usersResumeWatch = async function (req, userId) {
+	let limit = req.query.limit;
+	let page = req.query.page;
+	try {
+		let user = 'sss';
+		// // 	// console.log(user);
+		// let modWatchlist = {};
+		if (user) {
+			let query = {
+				deleted: false,
+				user: userId,
+			};
+
+			let options = {
+				limit: parseInt(limit) || 20,
+				page: parseInt(page) || 1,
+				sort: { createdAt: -1 },
+			};
+
+			let watchlist = await ResumeWatch.paginate(query, options);
+			let moviesIds = [];
+			watchlist.docs
+				.filter(item => item.entity === 'movies')
+				.map((item, index) => {
+					moviesIds.push({
+						resumeWatchId: item.id,
+						movieId: item.entityId,
+						runningTime: item.runningTime,
+					});
+				});
+			let moviesArray = [];
+			for (let index = 0; index < moviesIds.length; index++) {
+				const movieId = moviesIds[index]['movieId'];
+				const resumeWatchId = moviesIds[index]['resumeWatchId'];
+				const runningTime = moviesIds[index]['runningTime'];
+				// console.log({ movieId, resumeWatchId });
+				let movie = await MovieService.finded(movieId);
+				if (movie !== '') {
+					moviesArray.push({
+						resumeWatchId: resumeWatchId,
+						runningTime: runningTime,
+						movie: movie,
+					});
+				}
+			}
+
+			let seriesIds = [];
+			watchlist.docs
+				.filter(item => item.entity === 'series')
+				.map((item, index) => {
+					seriesIds.push({
+						resumeWatchId: item.id,
+						seriesId: item.entityId,
+						runningTime: item.runningTime,
+					});
+				});
+			let seriesArray = [];
+			for (let index = 0; index < seriesIds.length; index++) {
+				const seriesId = seriesIds[index]['seriesId'];
+				const resumeWatchId = seriesIds[index]['resumeWatchId'];
+				const runningTime = moviesIds[index]['runningTime'];
+				// console.log({ seriesId, resumeWatchId });
+				let series = await SeriesService.finded(seriesId);
+				if (series !== '') {
+					seriesArray.push({
+						resumeWatchId: resumeWatchId,
+						runningTime: runningTime,
+						series: series,
+					});
+				}
+			}
+
+			return { movies: moviesArray, series: seriesArray };
+		} else {
+			return [];
+		}
+	} catch (e) {
+		console.log(e);
+		throw Error('Error while find watchlist by user id');
+	}
 };

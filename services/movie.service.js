@@ -253,7 +253,8 @@ exports.finded = async function (id) {
 		});
 		return movies;
 	} catch (e) {
-		throw Error('Error while find movie by id');
+		// throw Error('Error while find movie by id');
+		return '';
 	}
 };
 

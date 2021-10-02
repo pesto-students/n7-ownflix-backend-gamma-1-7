@@ -90,7 +90,9 @@ exports.userWatchList = async function (req, userId) {
 				const watchlistId = moviesIds[index]['watchlistId'];
 				// console.log({ movieId, watchlistId });
 				let movie = await MovieService.finded(movieId);
-				moviesArray.push({ watchlistId: watchlistId, movie: movie });
+				if (movie !== '') {
+					moviesArray.push({ watchlistId: watchlistId, movie: movie });
+				}
 			}
 
 			let seriesIds = [];
@@ -105,7 +107,9 @@ exports.userWatchList = async function (req, userId) {
 				const watchlistId = seriesIds[index]['watchlistId'];
 				// console.log({ seriesId, watchlistId });
 				let series = await SeriesService.finded(seriesId);
-				seriesArray.push({ watchlistId: watchlistId, series: series });
+				if (series !== '') {
+					seriesArray.push({ watchlistId: watchlistId, series: series });
+				}
 			}
 
 			return { movies: moviesArray, series: seriesArray };

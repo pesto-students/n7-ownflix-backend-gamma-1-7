@@ -92,3 +92,8 @@ exports.checkOrUpdate = async function (req, res, next) {
 		res.status(200).send({});
 	}
 };
+exports.userResumeWatch = async function (req, res, next) {
+	let userId = req.params.userId;
+	let resumewatch = await ResumeWatchService.usersResumeWatch(req, userId);
+	res.status(200).send(resumewatch);
+};

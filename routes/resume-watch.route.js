@@ -5,6 +5,7 @@ const resumeWatchController = require('../controllers/resume-watch.controller');
 
 router.get('/all', resumeWatchController.indexAll);
 router.get('/get-details', resumeWatchController.getDetails);
+router.get('/user/:userId', resumeWatchController.userResumeWatch);
 router.get('/check-or-update', resumeWatchController.checkOrUpdate);
 
 router.post('/', resumeWatchController.store);
