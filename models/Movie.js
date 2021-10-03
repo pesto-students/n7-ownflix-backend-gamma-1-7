@@ -26,7 +26,7 @@ const schema = mongoose.Schema(
 		director: String,
 		productionHouse: String,
 		imdbRating: Number,
-		runningTime: { type: String, required: true },
+		duration: { type: Number, required: true },
 		actors: String,
 		plot: String,
 		rated: { type: String, required: true },

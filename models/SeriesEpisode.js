@@ -22,7 +22,7 @@ const schema = mongoose.Schema(
 		videoTrailer: { type: Object, required: true },
 		videoMain: { type: Object, required: true },
 		dateOfRelease: { type: String, required: true },
-		runningTime: { type: String, required: true },
+		duration: { type: Number, required: true },
 		plot: String,
 		isPublished: { type: Boolean, default: true, required: true },
 	},
