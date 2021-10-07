@@ -229,7 +229,7 @@ exports.latest = async function (req) {
 exports.bySlug = async function (slug) {
 	try {
 		let modSeries = {};
-		let series = await Series.findOne({ slug: slug });
+		let series = await Series.findOne({ slug: slug }).populate({ path: 'genres', select: 'title slug' });
 		let episodes = await SeriesEpisode.find({
 			series: series.id,
 			deleted: false,
