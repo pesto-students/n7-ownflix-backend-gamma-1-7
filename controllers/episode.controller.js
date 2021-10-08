@@ -67,7 +67,7 @@ exports.hardDestroy = async function (req, res, next) {
 
 exports.bySlug = async function (req, res, next) {
 	let slug = req.params.slug;
-	let episode = await EpisodeService.bySlug(slug);
+	let episode = await EpisodeService.bySlug(slug).populate({ path: 'series' });
 	res.status(200).send(episode);
 };
 exports.indexAll = async function (req, res, next) {
