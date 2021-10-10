@@ -122,7 +122,7 @@ exports.popular = async function (req) {
 		populate: [{ path: 'genres', select: 'title slug' }],
 		limit: parseInt(limit) || 10,
 		page: page || 1,
-		sort: { imdbRating: -1, views: -1 },
+		sort: { views: -1, imdbRating: -1 },
 	};
 
 	try {
