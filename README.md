@@ -31,7 +31,7 @@
 - **Authentication and authorization**: using [passport](http://www.passportjs.org)
 - **Testing**: unit and integration tests using [Jest](https://jestjs.io)
 - **Error handling**: centralized error handling mechanism
-- **CI**: continuous integration with [Github Actions](https://circleci.com/)
+- **CI**: continuous integration with `Github Actions`
 - **Linting**: with [ESLint](https://eslint.org) and [Prettier](https://prettier.io)
 - **Editor config**: consistent editor configuration using [EditorConfig](https://editorconfig.org)
 
