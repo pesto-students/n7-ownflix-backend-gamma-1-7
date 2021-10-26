@@ -1,5 +1,3 @@
-# NINJA-TEMPLATE
-
 # WatchFlix API
 
 ## Pre-requisites
